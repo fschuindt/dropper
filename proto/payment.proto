@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package dropper.payment;
+
+service Create {
+  rpc Payment (CreateRequest) returns (CreateResponse) {}
+}
+
+message Payer {
+  string name = 1;
+  string email = 2;
+}
+
+enum Method {
+  CC = 0;
+  TICKET = 1;
+  DEBT = 2;
+}
+
+message CreateRequest {
+  Payer payer = 1;
+  Method method = 2;
+}
+
+message CreateResponse {
+  bool success = 1;
+  string id = 2;
+  map<string, string> errors = 3;
+}
