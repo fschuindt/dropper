@@ -1,2 +1,0 @@
-defmodule Dropper do
-end
