@@ -14,17 +14,23 @@ defmodule Dropper.Payment.Create.Server do
   end
 
   defp create_payment({:error, _changeset}, _request) do
-    Payment.CreateResponse.new(success: false)
+    Payment.CreateResponse.new(success: false, errors: errors(:missing_payer))
   end
 
-  defp finish({:ok, payment}, payer) do
-    payer_data = "Payer: #{payer.name} <#{payer.email}>"
-    payment_data = "Method: #{payment.method}"
-
-    Payment.CreateResponse.new(success: true, id: "#{payer_data} | #{payment_data}")
+  defp finish({:ok, payment}, _payer) do
+    payment_id = Integer.to_string(payment.id)
+    Payment.CreateResponse.new(success: true, id: payment_id)
   end
 
   defp finish({:error, _changeset}, _payer) do
-    Payment.CreateResponse.new(success: false)
+    Payment.CreateResponse.new(success: false, errors: errors(:missing_payment))
+  end
+
+  defp errors(:missing_payer) do
+    %{"missing_payer" => "Error when trying to create a Payer."}
+  end
+
+  defp errors(:missing_payment) do
+    %{"missing_payment" => "Error when trying to create a Payment."}
   end
 end
