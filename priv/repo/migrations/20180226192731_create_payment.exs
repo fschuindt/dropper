@@ -4,7 +4,7 @@ defmodule Dropper.Repo.Migrations.CreatePayment do
   def change do
     create table(:payments) do
       add :payer_id, references(:payers)
-      add :method, :integer
+      add :method, :integer, default: 0
 
       timestamps()
     end
