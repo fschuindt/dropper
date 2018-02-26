@@ -2,8 +2,8 @@ defmodule Dropper.Payment do
   use Ecto.Schema
 
   schema "payments" do
-    field :method, :integer
-    belongs_to :payer, Dropper.Payer
+    field(:method, :integer)
+    belongs_to(:payer, Dropper.Payer)
   end
 
   def changeset(payment, params \\ %{}) do
