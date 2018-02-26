@@ -3,6 +3,9 @@ GEM
   specs:
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    concurrent-ruby (1.0.5)
+    faker (1.8.7)
+      i18n (>= 0.7)
     faraday (0.14.0)
       multipart-post (>= 1.2, < 3)
     google-protobuf (3.5.1.2)
@@ -20,6 +23,8 @@ GEM
       google-protobuf (~> 3.1)
       googleapis-common-protos-types (~> 1.0.0)
       googleauth (>= 0.5.1, < 0.7)
+    i18n (1.0.0)
+      concurrent-ruby (~> 1.0)
     jwt (2.1.0)
     little-plugger (1.1.4)
     logging (2.2.2)
@@ -40,6 +45,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  faker (~> 1.8.7)
   grpc (~> 1.9, >= 1.9.1)
 
 RUBY VERSION
