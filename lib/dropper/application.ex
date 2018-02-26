@@ -9,7 +9,8 @@ defmodule Dropper.Application do
     import Supervisor.Spec, warn: false
     # List all child processes to be supervised
     children = [
-      supervisor(GRPC.Server.Supervisor, [{Dropper.Payment.Create.Server, 50051}])
+      supervisor(GRPC.Server.Supervisor, [{Dropper.Payment.Create.Server, 50051}]),
+      supervisor(Dropper.Repo, []),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
