@@ -1,12 +1,12 @@
 defmodule Dropper.Payment.Create.Server do
   alias Dropper.Payment
-  # use GRPC.Server, service: Payment.Create.Service
+  use GRPC.Server, service: Payment.Create.Service
 
-  # @spec payment(Payment.CreateRequest.t, GRPC.Server.Stream.t) :: Payment.CreateResponse.t
-  # def payment(request, _stream) do
+  @spec payment(Payment.CreateRequest.t, GRPC.Server.Stream.t) :: Payment.CreateResponse.t
+  def payment(request, _stream) do
   #   Payment.Create.Transaction.create_payer(request)
   #   |> create_payment(request)
-  # end
+  end
 
   # defp create_payment({:ok, payer}, request) do
   #   Payment.Create.Transaction.create_payment(request, payer)
