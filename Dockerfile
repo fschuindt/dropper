@@ -22,7 +22,7 @@ RUN mkdir /export && \
     tar -xzf "$REL/dropper.tar.gz" -C /export
 
 # -----------------------------------------------------------------
-# Deploy
+# Run
 # -----------------------------------------------------------------
 FROM erlang:20.2.3-alpine
 
@@ -31,12 +31,13 @@ EXPOSE 50051
 ENV REPLACE_OS_VARS=true
 #   PORT=50051
 
-# Add bash to the system.
-RUN apk add --no-cache bash
-
 # Copy extracted source from the build tarball release to here.
 COPY --from=build /export/ .
 
+# Add bash to the system.
+RUN apk add --no-cache bash
+
 # Set default entrypoint and start command.
-ENTRYPOINT ["bin/dropper"]
-CMD ["foreground"]
+# ENTRYPOINT ["bin"]
+# ENTRYPOINT ["bin/dropper"]
+# CMD ["foreground"]

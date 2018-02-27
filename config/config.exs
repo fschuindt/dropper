@@ -7,7 +7,7 @@ config :dropper, Dropper.Repo,
   database: "dropper_repo",
   username: "dropper",
   password: "s3cr3t",
-  hostname: "localhost"
+  hostname: "database"
 
 config :dropper, ecto_repos: [Dropper.Repo]
 

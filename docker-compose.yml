@@ -1,12 +1,13 @@
 version: '3'
 
 services:
-  db:
+  database:
     image: postgres:10.2-alpine
     restart: always
     environment:
       POSTGRES_USER: dropper
       POSTGRES_PASSWORD: s3cr3t
+      POSTGRES_DB: dropper_repo
     ports:
       - "5432:5432"
   dropper:
@@ -17,3 +18,5 @@ services:
       PORT: 50051
     ports:
       - "50051:50051"
+    depends_on:
+      - database
