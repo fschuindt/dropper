@@ -20,4 +20,4 @@ services:
       PORT: 50051
     ports:
       - "50051:50051"
-    command: "./wait_db_and_start.sh"
+    command: "./wait_for_postgres_then_start.sh"
