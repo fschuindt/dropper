@@ -35,16 +35,16 @@ FROM erlang:20.2.3-alpine
 # Expose the 50051 port to be used by the gRPC server.
 EXPOSE 50051
 
-# Copy the shell/wait_for_postgres.sh bash script to the system.
+# Copy the shell/wait_db_and_start.sh bash script to the system.
 # It waits the dropper_database to be up, then fires the application.
-COPY shell/wait_for_postgres.sh .
+COPY shell/wait_db_and_start.sh .
 
 # Add bash and the PostgreSQL client to the system.
-# This client is needed by the shell/wait_for_postgres.sh script.
+# This client is needed by the shell/wait_db_and_start.sh script.
 # Also allow the script to execute.
 # Docker Compose will call it.
 RUN apk add --no-cache bash postgresql-client && \
-    chmod +x wait_for_postgres.sh
+    chmod +x wait_db_and_start.sh
 
 # Copy extracted BEAM code from the tarball release to the system.
 COPY --from=build /export/ .

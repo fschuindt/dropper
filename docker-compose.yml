@@ -1,18 +1,18 @@
 version: '3'
 
 services:
-  dropper_database:
+  database:
     env_file:
-      - dropper_database.env
+      - database_service.env
     image: postgres:10.2-alpine
     restart: always
     ports:
       - "5432:5432"
   dropper:
     env_file:
-      - dropper.env
+      - dropper_service.env
     depends_on:
-      - dropper_database
+      - database
     build:
       context: .
       dockerfile: Dockerfile
@@ -20,4 +20,4 @@ services:
       PORT: 50051
     ports:
       - "50051:50051"
-    command: ["./wait_for_postgres.sh", "bin/dropper foreground"]
+    command: "./wait_db_and_start.sh"
