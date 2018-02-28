@@ -6,4 +6,6 @@ until psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$POSTGRES_DATABASE" -c '\
 done
 
 >&2 echo "PostgreSQL server is up!"
-exec $1
+
+bin/dropper migrate
+bin/dropper foreground
