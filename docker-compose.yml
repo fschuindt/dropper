@@ -1,19 +1,9 @@
 version: '3'
 
 services:
-  db:
-    image: postgres:10.2-alpine
-    restart: always
-    environment:
-      POSTGRES_USER: dropper
-      POSTGRES_PASSWORD: s3cr3t
-    ports:
-      - "5432:5432"
   dropper:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      PORT: 50051
     ports:
-      - "50051:50051"
+      - "2222:2222"
