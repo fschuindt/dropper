@@ -8,6 +8,6 @@
 - [ ] gRPC read.
 - [ ] Allow Ecto errors to be on top.
 - [ ] Refactor the way the database-related logic is implemented.
-- [ ] Docker Containerization.
+- [x] Docker Containerization.
 - [x] Set a release in Distillery.
 - [ ] Secure Distillery release cookies in a `.env` file.
