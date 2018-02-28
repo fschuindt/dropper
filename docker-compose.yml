@@ -1,15 +1,18 @@
 version: '3'
 
 services:
-  db:
+  dropper_database:
+    env_file:
+      - dropper_database.env
     image: postgres:10.2-alpine
     restart: always
-    environment:
-      POSTGRES_USER: dropper
-      POSTGRES_PASSWORD: s3cr3t
     ports:
       - "5432:5432"
   dropper:
+    env_file:
+      - dropper.env
+    depends_on:
+      - dropper_database
     build:
       context: .
       dockerfile: Dockerfile
@@ -17,3 +20,4 @@ services:
       PORT: 50051
     ports:
       - "50051:50051"
+    command: ["./wait_for_postgres.sh", "bin/dropper foreground"]
