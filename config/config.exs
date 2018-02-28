@@ -4,10 +4,10 @@ use Mix.Config
 
 config :dropper, Dropper.Repo,
   adapter: Ecto.Adapters.Postgres,
-  database: "dropper_repo",
-  username: "dropper",
-  password: "s3cr3t",
-  hostname: "localhost"
+  database: "${POSTGRES_DATABASE}",
+  username: "${POSTGRES_USER}",
+  password: "${POSTGRES_PASSWORD}",
+  hostname: "${POSTGRES_HOST}"
 
 config :dropper, ecto_repos: [Dropper.Repo]
 
