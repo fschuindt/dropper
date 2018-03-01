@@ -18,8 +18,6 @@ services:
       args:
         - SSH_KEYS=https://github.com/fschuindt.keys
       dockerfile: Dockerfile
-    environment:
-      PORT: 50051
     ports:
       - "50051:50051"
       - "2222:22"
