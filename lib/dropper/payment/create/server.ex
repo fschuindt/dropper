@@ -24,28 +24,30 @@ defmodule Dropper.Payment.Create.Server do
     |> create_payment(request)
   end
 
-  @spec create_payment({:ok, Ecto.Schema.t}, Payment.CreateRequest.t()) :: Payment.CreateResponse.t()
+  @spec create_payment({:ok, Ecto.Schema.t()}, Payment.CreateRequest.t()) ::
+          Payment.CreateResponse.t()
   defp create_payment({:ok, payer}, request) do
     Payment.Create.Transaction.create_payment(request, payer)
     |> finish
   end
 
-  @spec create_payment({:error, Ecto.Schema.t}, Payment.CreateRequest.t()) :: Payment.CreateResponse.t()
+  @spec create_payment({:error, Ecto.Schema.t()}, Payment.CreateRequest.t()) ::
+          Payment.CreateResponse.t()
   defp create_payment({:error, _changeset}, _request) do
     Payment.CreateResponse.new(success: false, errors: errors(:missing_payer))
   end
 
-  @spec finish({:ok, Ecto.Schema.t}) :: Payment.CreateResponse.t()
+  @spec finish({:ok, Ecto.Schema.t()}) :: Payment.CreateResponse.t()
   defp finish({:ok, payment}) do
     Payment.CreateResponse.new(success: true, id: to_string(payment.id))
   end
 
-  @spec finish({:error, Ecto.Schema.t}) :: Payment.CreateResponse.t()
+  @spec finish({:error, Ecto.Schema.t()}) :: Payment.CreateResponse.t()
   defp finish({:error, _changeset}) do
     Payment.CreateResponse.new(success: false, errors: errors(:missing_payment))
   end
 
-  @spec errors(atom) :: %{required(String.t) => String.t}
+  @spec errors(atom) :: %{required(String.t()) => String.t()}
 
   defp errors(:missing_payer) do
     %{"missing_payer" => "Error when trying to create a Payer."}
