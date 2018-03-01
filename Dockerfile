@@ -32,19 +32,33 @@ RUN mkdir /export && \
 # -----------------------------------------------------------------
 FROM erlang:20.2.3-alpine
 
-# Expose the 50051 port to be used by the gRPC server.
-EXPOSE 50051
+# Expose ports:
+# 22 to our OpenSSH server.
+# 50051 to our gRPC server.
+EXPOSE 22 50051
 
-# Copy shell/wait_for_postgres_then_start.sh script to the system.
-# It waits the dropper_database to be up, then fires the application.
-COPY shell/wait_for_postgres_then_start.sh .
-
-# Add bash and the PostgreSQL client to the system.
-# This client is needed by the shell/wait_for_postgres_then_start.sh.
-# Also allow this script to execute.
-# Docker Compose will call it.
-RUN apk add --no-cache bash postgresql-client && \
-    chmod +x wait_for_postgres_then_start.sh
+# Copy shell/entrypoint.sh script to the system.
+# It starts the OpenSSH server and waits for the PostgreSQL server.
+# Then fires the :dropper OTP application.
+COPY shell/entrypoint.sh .
 
 # Copy extracted BEAM code from the tarball release to the system.
 COPY --from=build /export/ .
+
+# Import the argument SSH_KEYS from docker-compose.yml.
+# It's a URL of your SSH public keys file.
+# Then add it to the root's OpenSSH authorized keys file.
+ARG SSH_KEYS
+ADD $SSH_KEYS /root/.ssh/authorized_keys
+
+# Install bash, a PostgreSQL client and the OpenSSH server.
+# Those are used by the shell/entrypoint.sh script.
+# Allow the root user to login via SSH.
+# Deny SSH password authentication, keys required to login.
+# Change root password to "root".
+# Allow the /entrypoint.sh file to execute.
+RUN apk add --no-cache bash postgresql-client openssh \
+    && sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config \
+    && sed -i s/#PasswordAuthentication.*/PasswordAuthentication\ no/ /etc/ssh/sshd_config \
+    && echo "root:root" | chpasswd \
+    && chmod +x /entrypoint.sh

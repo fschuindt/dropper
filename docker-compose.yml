@@ -15,9 +15,12 @@ services:
       - database
     build:
       context: .
+      args:
+        - SSH_KEYS=https://github.com/fschuindt.keys
       dockerfile: Dockerfile
     environment:
       PORT: 50051
     ports:
       - "50051:50051"
-    command: "./wait_for_postgres_then_start.sh"
+      - "2222:22"
+    command: "./entrypoint.sh"
