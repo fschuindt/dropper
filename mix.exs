@@ -23,6 +23,7 @@ defmodule Dropper.MixProject do
   defp deps do
     [
       {:distillery, "~> 1.5", runtime: false},
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
       {:grpc, github: "tony612/grpc-elixir"},
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"}
