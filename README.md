@@ -3,7 +3,7 @@
 
 ## To Do
 - [ ] Testing.
-- [ ] Typespecs.
+- [x] Typespecs.
 - [x] gRPC write.
 - [ ] gRPC read.
 - [ ] Allow Ecto errors to be on top.
