@@ -12,6 +12,7 @@
 - [x] Set a release in Distillery.
 - [x] Secure Distillery release cookies in a `.env` file.
 - [ ] Upgrade to Elixir 1.6.2.
+- [ ] Implement [edeliver](https://github.com/edeliver/edeliver) for Erlang hot-upgrades.
 
 ## Setup and run
 
