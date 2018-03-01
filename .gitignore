@@ -22,3 +22,7 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 dropper-*.tar
 
+# Ignore .envrc and .env files.
+# But keep others *.env.
+.envrc
+.env
